@@ -2,15 +2,15 @@ package libgdx.constants;
 
 import libgdx.game.GameId;
 import libgdx.game.SubGameDependencyManager;
-import libgdx.implementations.letter.LettersGameDependencyManager;
+import libgdx.implementations.iq.IqGameDependencyManager;
 
 public enum GameIdEnum implements GameId {
 
-    lettersgame(LettersGameDependencyManager.class),;
+    iqgame(IqGameDependencyManager.class),;
 
     private Class<? extends SubGameDependencyManager> dependencyManagerClass;
 
-    GameIdEnum(Class<? extends LettersGameDependencyManager> dependencyManagerClass) {
+    GameIdEnum(Class<? extends IqGameDependencyManager> dependencyManagerClass) {
         this.dependencyManagerClass = dependencyManagerClass;
     }
 

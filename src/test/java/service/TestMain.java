@@ -13,7 +13,7 @@ import com.badlogic.gdx.graphics.glutils.ShaderProgram;
 import libgdx.constants.GameIdEnum;
 import libgdx.controls.popup.RatingService;
 import libgdx.game.Game;
-import libgdx.game.LettersGame;
+import libgdx.game.IqGame;
 import libgdx.game.external.AppInfoService;
 import libgdx.preferences.PreferencesService;
 import libgdx.preferences.SettingsService;
@@ -71,10 +71,10 @@ public class TestMain implements ApplicationListener {
         Mockito.when(preferencesService.getPreferences().getInteger("TransactionAmountEnum_VERSION")).thenReturn(0);
         Mockito.when(preferencesService.getPreferences().getString("TransactionAmountEnum_VALUE")).thenReturn("");
 
-        LettersGame game = new LettersGame(new DefaultFacebookService(), new DefaultBillingService(), new AppInfoServiceImpl());
+        IqGame game = new IqGame(new DefaultFacebookService(), new DefaultBillingService(), new AppInfoServiceImpl());
         game.create();
 
-        LettersGame.getInstance().setScreen(null);
+        IqGame.getInstance().setScreen(null);
     }
 
     public static void assertDateTimeNow(String date) {
@@ -84,7 +84,7 @@ public class TestMain implements ApplicationListener {
     public class AppInfoServiceImpl implements AppInfoService {
         @Override
         public String getGameIdPrefix() {
-            return GameIdEnum.lettersgame.name();
+            return GameIdEnum.iqgame.name();
         }
 
         @Override

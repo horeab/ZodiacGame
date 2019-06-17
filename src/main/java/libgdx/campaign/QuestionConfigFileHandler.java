@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import libgdx.game.Game;
-import libgdx.game.LettersGame;
+import libgdx.game.IqGame;
 import libgdx.utils.EnumUtils;
 
 public class QuestionConfigFileHandler {
@@ -19,7 +19,7 @@ public class QuestionConfigFileHandler {
 
     public List<QuestionDifficulty> getQuestionDifficultiesForCategory(QuestionCategory questionCategory) {
         List<QuestionDifficulty> questionDifficulties = new ArrayList<>();
-        for (QuestionDifficulty questionDifficulty : (QuestionDifficulty[]) EnumUtils.getValues(LettersGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum())) {
+        for (QuestionDifficulty questionDifficulty : (QuestionDifficulty[]) EnumUtils.getValues(IqGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum())) {
             if (questionConfigExists(questionDifficulty, questionCategory)) {
                 questionDifficulties.add(questionDifficulty);
             }
@@ -29,7 +29,7 @@ public class QuestionConfigFileHandler {
 
     public List<QuestionCategory> getQuestionCategoriesForDifficulty(QuestionDifficulty questionDifficulty) {
         List<QuestionCategory> questionCategories = new ArrayList<>();
-        for (QuestionCategory questionCategory : (QuestionCategory[]) EnumUtils.getValues(LettersGame.getInstance().getDependencyManager().getQuestionCategoryTypeEnum())) {
+        for (QuestionCategory questionCategory : (QuestionCategory[]) EnumUtils.getValues(IqGame.getInstance().getDependencyManager().getQuestionCategoryTypeEnum())) {
             if (questionConfigExists(questionDifficulty, questionCategory)) {
                 questionCategories.add(questionCategory);
             }

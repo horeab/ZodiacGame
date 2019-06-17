@@ -2,17 +2,14 @@ package libgdx.screens.mainmenu;
 
 import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Stack;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
 
-import libgdx.campaign.CampaignService;
-import libgdx.campaign.LettersCampaignLevelEnum;
 import libgdx.controls.animations.ActorAnimation;
 import libgdx.controls.button.MyButton;
+import libgdx.controls.button.builders.BackButtonBuilder;
 import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
 import libgdx.game.Game;
@@ -21,8 +18,6 @@ import libgdx.resources.FontManager;
 import libgdx.resources.Resource;
 import libgdx.resources.dimen.MainDimen;
 import libgdx.screens.AbstractScreen;
-import libgdx.services.BackButtonBuilder;
-import libgdx.services.MainMenuButtonBuilder;
 import libgdx.utils.ScreenDimensionsManager;
 
 public class MainMenuScreen extends AbstractScreen {
@@ -36,7 +31,7 @@ public class MainMenuScreen extends AbstractScreen {
         Table table = new Table();
         float verticalGeneralMarginDimen = MainDimen.vertical_general_margin.getDimen();
         if (Gdx.app.getType() == Application.ApplicationType.iOS) {
-            MyButton backBtn = new BackButtonBuilder().build();
+            MyButton backBtn = new BackButtonBuilder().createScreenBackButton(this);
             table.add(backBtn).padLeft(-MainDimen.horizontal_general_margin.getDimen() * 40).padTop(-verticalGeneralMarginDimen * 3).width(backBtn.getWidth()).height(backBtn.getHeight()).row();
         }
         table.setFillParent(true);
@@ -81,18 +76,7 @@ public class MainMenuScreen extends AbstractScreen {
     }
 
     private MyButton createStartGameBtn() {
-        MyButton button = new MainMenuButtonBuilder().setStartGameButton().setFontDimen(FontManager.calculateMultiplierStandardFontSize(1.2f)).build();
-        button.addListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-                if (new CampaignService().getCrosswordLevel(LettersCampaignLevelEnum.LEVEL_0_0) == -1) {
-                    screenManager.showGameScreen(LettersCampaignLevelEnum.LEVEL_0_0);
-                } else {
-                    screenManager.showCampaignScreen();
-                }
-            }
-        });
-        return button;
+        return new BackButtonBuilder().createScreenBackButton(this);
     }
 
     @Override
