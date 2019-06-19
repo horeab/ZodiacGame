@@ -10,6 +10,8 @@ public enum IqGameSpecificResource implements SpecificResource {
 
     // @formatter:off
 
+    specific_labels("labels/labels", I18NBundle.class),
+
     ;
     // @formatter:on
 
