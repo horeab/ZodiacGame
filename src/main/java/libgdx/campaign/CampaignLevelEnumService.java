@@ -1,7 +1,7 @@
 package libgdx.campaign;
 
-import libgdx.game.IqGame;
-import libgdx.resources.IqGameButtonSkin;
+import libgdx.implementations.iq.IqGame;
+import libgdx.implementations.iq.IqGameButtonSkin;
 import libgdx.resources.Resource;
 import libgdx.resources.gamelabel.SpecificPropertiesUtils;
 import libgdx.utils.EnumUtils;

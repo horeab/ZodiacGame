@@ -2,7 +2,7 @@ package libgdx.campaign;
 
 import java.util.List;
 
-import libgdx.game.IqGame;
+import libgdx.implementations.iq.IqGame;
 import libgdx.utils.EnumUtils;
 
 public class CampaignService {

@@ -10,16 +10,17 @@
             <option value="$PROJECT_DIR$" />
           </set>
         </option>
+        <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
       <GradleProjectSettings>
-        <option name="distributionType" value="LOCAL" />
-        <option name="externalProjectPath" value="$PROJECT_DIR$/../LibGdxControls/src/main" />
-        <option name="gradleHome" value="D:/Progs/Android Studio/plugins/gradle" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/../LibGdxControls" />
         <option name="modules">
           <set>
-            <option value="$PROJECT_DIR$/../LibGdxControls/src/main" />
+            <option value="$PROJECT_DIR$/../LibGdxControls" />
           </set>
         </option>
+        <option name="useQualifiedModuleNames" value="true" />
       </GradleProjectSettings>
     </option>
   </component>

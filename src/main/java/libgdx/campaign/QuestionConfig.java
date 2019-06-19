@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import libgdx.game.IqGame;
+import libgdx.implementations.iq.IqGame;
 import libgdx.utils.EnumUtils;
 
 public class QuestionConfig {

@@ -1,24 +1,13 @@
 package libgdx.campaign;
 
-import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
-import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
-
-import org.apache.commons.lang3.StringUtils;
-
-import libgdx.controls.animations.ActorAnimation;
 import libgdx.controls.button.ButtonBuilder;
 import libgdx.controls.button.MyButton;
 import libgdx.controls.labelimage.LabelImage;
-import libgdx.game.Game;
-import libgdx.game.IqGame;
 import libgdx.graphics.GraphicUtils;
-import libgdx.resources.FontManager;
-import libgdx.resources.IqGameButtonSize;
-import libgdx.resources.IqGameButtonSkin;
-import libgdx.resources.MainResource;
-import libgdx.resources.Resource;
+import libgdx.resources.*;
 import libgdx.resources.dimen.MainDimen;
+import org.apache.commons.lang3.StringUtils;
 
 public class CampaignLevelButtonBuilder extends ButtonBuilder {
 
@@ -41,25 +30,7 @@ public class CampaignLevelButtonBuilder extends ButtonBuilder {
 
     @Override
     public MyButton build() {
-        setFixedButtonSize(IqGameButtonSize.CAMPAIGN_LEVEL_ROUND_IMAGE);
-        IqGameButtonSkin buttonSkin = IqGameButtonSkin.CAMPAIGN_LOCKED_LEVEL;
-        if (level != null) {
-            buttonSkin = level.getStatus() == CampaignLevelStatusEnum.FINISHED.getStatus() ? campaignLevelEnumService.getButtonSkin() : IqGameButtonSkin.CAMPAIGN_CURRENT_LEVEL;
-        }
-        setButtonSkin(buttonSkin);
-        addLevelInfo();
-        addClickListener(new ClickListener() {
-            @Override
-            public void clicked(InputEvent event, float x, float y) {
-            }
-        });
-        MyButton myButton = super.build();
-        myButton.setDisabled(levelLocked);
-        if(buttonSkin== IqGameButtonSkin.CAMPAIGN_CURRENT_LEVEL){
-            myButton.setTransform(true);
-            new ActorAnimation(myButton, Game.getInstance().getAbstractScreen()).animateZoomInZoomOut();
-        }
-        return myButton;
+        return null;
     }
 
     private void addLevelInfo() {

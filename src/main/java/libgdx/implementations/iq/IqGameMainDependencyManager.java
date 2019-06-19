@@ -1,0 +1,49 @@
+package libgdx.implementations.iq;
+
+import libgdx.constants.GameIdEnum;
+import libgdx.controls.labelimage.InventoryTableBuilderCreator;
+import libgdx.controls.popup.RatingService;
+import libgdx.game.MainDependencyManager;
+import libgdx.game.ScreenManager;
+import libgdx.resources.Resource;
+import libgdx.resources.ResourceService;
+import libgdx.screens.AbstractScreen;
+import libgdx.transactions.TransactionsService;
+
+public class IqGameMainDependencyManager extends MainDependencyManager<ScreenManager, AbstractScreen, Resource, GameIdEnum> {
+
+    @Override
+    public Class<Resource> getMainResourcesClass() {
+        return Resource.class;
+    }
+
+    @Override
+    public Class<GameIdEnum> getGameIdClass() {
+        return GameIdEnum.class;
+    }
+
+    @Override
+    public ResourceService createResourceService() {
+        return new IqGameResourceService();
+    }
+
+    @Override
+    public RatingService createRatingService(AbstractScreen abstractScreen) {
+        return new IqGameRatingService(abstractScreen);
+    }
+
+    @Override
+    public ScreenManager createScreenManager() {
+        return new ScreenManager();
+    }
+
+    @Override
+    public InventoryTableBuilderCreator createInventoryTableBuilderCreator() {
+        throw new RuntimeException("Transactions not implemented for Game");
+    }
+
+    @Override
+    public TransactionsService getTransactionsService() {
+        throw new RuntimeException("Transactions not implemented for Game");
+    }
+}

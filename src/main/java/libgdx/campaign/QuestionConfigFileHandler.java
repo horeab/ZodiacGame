@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import libgdx.game.Game;
-import libgdx.game.IqGame;
+import libgdx.implementations.iq.IqGame;
 import libgdx.utils.EnumUtils;
 
 public class QuestionConfigFileHandler {
