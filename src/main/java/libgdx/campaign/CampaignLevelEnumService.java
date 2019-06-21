@@ -1,7 +1,7 @@
 package libgdx.campaign;
 
-import libgdx.implementations.iq.IqGame;
-import libgdx.implementations.iq.IqGameButtonSkin;
+import libgdx.implementations.iq.SkelGame;
+import libgdx.implementations.iq.SkelGameButtonSkin;
 import libgdx.resources.Resource;
 import libgdx.resources.gamelabel.SpecificPropertiesUtils;
 import libgdx.utils.EnumUtils;
@@ -24,15 +24,15 @@ public class CampaignLevelEnumService {
         return EnumUtils.getEnumValue(Resource.class, "campaign_level_" + getDifficulty() + "_background");
     }
 
-    public IqGameButtonSkin getButtonSkin() {
-        return EnumUtils.getEnumValue(IqGameButtonSkin.class, "CAMPAIGN_LEVEL_" + getCategory());
+    public SkelGameButtonSkin getButtonSkin() {
+        return EnumUtils.getEnumValue(SkelGameButtonSkin.class, "CAMPAIGN_LEVEL_" + getCategory());
     }
 
     public QuestionConfig getQuestionConfig() {
-        QuestionDifficulty difficulty = (QuestionDifficulty) EnumUtils.getEnumValue(IqGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum(), "_" + getDifficulty());
+        QuestionDifficulty difficulty = (QuestionDifficulty) EnumUtils.getEnumValue(SkelGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum(), "_" + getDifficulty());
         QuestionConfig questionConfig;
         if (getCategory() != null) {
-            QuestionCategory category = (QuestionCategory) EnumUtils.getEnumValue(IqGame.getInstance().getSubGameDependencyManager().getQuestionCategoryTypeEnum(), "CAT" + getCategory());
+            QuestionCategory category = (QuestionCategory) EnumUtils.getEnumValue(SkelGame.getInstance().getSubGameDependencyManager().getQuestionCategoryTypeEnum(), "CAT" + getCategory());
             questionConfig = new QuestionConfig(difficulty, category);
         } else {
             questionConfig = new QuestionConfig(difficulty);

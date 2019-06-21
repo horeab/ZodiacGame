@@ -6,11 +6,11 @@ import com.badlogic.gdx.scenes.scene2d.utils.Drawable;
 import libgdx.graphics.GraphicUtils;
 import libgdx.resources.Res;
 
-public enum IqGameButtonSkin implements libgdx.controls.button.ButtonSkin {
+public enum SkelGameButtonSkin implements libgdx.controls.button.ButtonSkin {
 
     ;
 
-    IqGameButtonSkin(Res imgUp, Res imgDown, Res imgChecked, Res imgDisabled, Color buttonDisabledFontColor) {
+    SkelGameButtonSkin(Res imgUp, Res imgDown, Res imgChecked, Res imgDisabled, Color buttonDisabledFontColor) {
         this.imgUp = imgUp;
         this.imgDown = imgDown;
         this.imgChecked = imgChecked;

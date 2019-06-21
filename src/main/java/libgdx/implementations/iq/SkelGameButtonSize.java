@@ -2,7 +2,7 @@ package libgdx.implementations.iq;
 
 import libgdx.resources.dimen.MainDimen;
 
-public enum IqGameButtonSize implements libgdx.controls.button.ButtonSize {
+public enum SkelGameButtonSize implements libgdx.controls.button.ButtonSize {
 
     FINAL_WORD_BUTTON(MainDimen.horizontal_general_margin.getDimen() * 5f, MainDimen.horizontal_general_margin.getDimen() * 5f),
     LETTER_BUTTON(MainDimen.horizontal_general_margin.getDimen() * 8f, MainDimen.horizontal_general_margin.getDimen() * 8f),
@@ -15,7 +15,7 @@ public enum IqGameButtonSize implements libgdx.controls.button.ButtonSize {
     private float width;
     private float height;
 
-    IqGameButtonSize(float width, float height) {
+    SkelGameButtonSize(float width, float height) {
         this.width = width;
         this.height = height;
     }

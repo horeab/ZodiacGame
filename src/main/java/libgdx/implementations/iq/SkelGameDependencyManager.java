@@ -10,7 +10,7 @@ import libgdx.campaign.LettersQuestionDifficultyLevel;
 import libgdx.campaign.StarsService;
 import libgdx.resources.IncrementingRes;
 
-public class IqGameDependencyManager extends CampaignGameDependencyManager {
+public class SkelGameDependencyManager extends CampaignGameDependencyManager {
 
     @Override
     public List<? extends IncrementingRes> getIncrementResList() {
@@ -19,8 +19,8 @@ public class IqGameDependencyManager extends CampaignGameDependencyManager {
     }
 
     @Override
-    public Class<IqGameSpecificResource> getSpecificResourceTypeEnum() {
-        return IqGameSpecificResource.class;
+    public Class<SkelGameSpecificResource> getSpecificResourceTypeEnum() {
+        return SkelGameSpecificResource.class;
     }
 
     @Override

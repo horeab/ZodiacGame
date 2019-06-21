@@ -9,26 +9,26 @@ import libgdx.game.external.BillingService;
 import libgdx.game.external.FacebookService;
 import libgdx.screens.AbstractScreen;
 
-public class IqGame extends Game<AppInfoService,
-        IqGameMainDependencyManager,
-        IqGameDependencyManager,
+public class SkelGame extends Game<AppInfoService,
+        SkelGameMainDependencyManager,
+        SkelGameDependencyManager,
         AbstractScreen,
         ScreenManager,
         GameIdEnum
         > {
 
-    public IqGame(FacebookService facebookService,
+    public SkelGame(FacebookService facebookService,
                   BillingService billingService,
                   AppInfoService appInfoService) {
-        super(facebookService, billingService, appInfoService, new IqGameMainDependencyManager());
+        super(facebookService, billingService, appInfoService, new SkelGameMainDependencyManager());
     }
 
-    public IqGameDependencyManager getDependencyManager() {
+    public SkelGameDependencyManager getDependencyManager() {
         return getSubGameDependencyManager();
     }
 
-    public static IqGame getInstance() {
-        return (IqGame) Game.getInstance();
+    public static SkelGame getInstance() {
+        return (SkelGame) Game.getInstance();
     }
 
     @Override

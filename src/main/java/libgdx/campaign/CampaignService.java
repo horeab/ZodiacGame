@@ -2,7 +2,7 @@ package libgdx.campaign;
 
 import java.util.List;
 
-import libgdx.implementations.iq.IqGame;
+import libgdx.implementations.iq.SkelGame;
 import libgdx.utils.EnumUtils;
 
 public class CampaignService {
@@ -11,7 +11,7 @@ public class CampaignService {
 
     public List<CampaignStoreLevel> processAndGetAllLevels() {
         List<CampaignStoreLevel> allPlayedLevels = campaignStoreService.getAllCampaignLevels();
-        CampaignLevel[] values = (CampaignLevel[]) EnumUtils.getValues(IqGame.getInstance().getSubGameDependencyManager().getCampaignLevelTypeEnum());
+        CampaignLevel[] values = (CampaignLevel[]) EnumUtils.getValues(SkelGame.getInstance().getSubGameDependencyManager().getCampaignLevelTypeEnum());
         if (getCampaignLevel(values[0].getIndex(), allPlayedLevels) == null) {
             campaignStoreService.createCampaignLevel(values[0]);
             allPlayedLevels.add(new CampaignStoreLevel(values[0]));
@@ -77,7 +77,7 @@ public class CampaignService {
     }
 
     private CampaignLevel getCampaignLevelEnum(int level) {
-        CampaignLevel[] values = (CampaignLevel[]) EnumUtils.getValues(IqGame.getInstance().getSubGameDependencyManager().getCampaignLevelTypeEnum());
+        CampaignLevel[] values = (CampaignLevel[]) EnumUtils.getValues(SkelGame.getInstance().getSubGameDependencyManager().getCampaignLevelTypeEnum());
         for (CampaignLevel campaignLevelEnum : values) {
             if (campaignLevelEnum.getIndex() == level) {
                 return campaignLevelEnum;
@@ -87,7 +87,7 @@ public class CampaignService {
     }
 
     private CampaignLevel getNextLevel(CampaignLevel currentCampaignLevelEnum) {
-        CampaignLevel[] values = (CampaignLevel[]) EnumUtils.getValues(IqGame.getInstance().getSubGameDependencyManager().getCampaignLevelTypeEnum());
+        CampaignLevel[] values = (CampaignLevel[]) EnumUtils.getValues(SkelGame.getInstance().getSubGameDependencyManager().getCampaignLevelTypeEnum());
         for (CampaignLevel campaignLevelEnum : values) {
             if (currentCampaignLevelEnum != null && campaignLevelEnum.getIndex() == currentCampaignLevelEnum.getIndex() + 1) {
                 return campaignLevelEnum;

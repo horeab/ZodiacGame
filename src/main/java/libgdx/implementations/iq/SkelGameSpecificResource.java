@@ -6,7 +6,7 @@ import com.badlogic.gdx.utils.I18NBundle;
 import libgdx.game.Game;
 import libgdx.resources.SpecificResource;
 
-public enum IqGameSpecificResource implements SpecificResource {
+public enum SkelGameSpecificResource implements SpecificResource {
 
     // @formatter:off
 
@@ -18,7 +18,7 @@ public enum IqGameSpecificResource implements SpecificResource {
     private String path;
     private Class<?> classType;
 
-    IqGameSpecificResource(String path, Class<?> classType) {
+    SkelGameSpecificResource(String path, Class<?> classType) {
         this.path = path;
         this.classType = classType;
     }
