@@ -12,8 +12,10 @@ import libgdx.controls.button.MyButton;
 import libgdx.controls.button.builders.BackButtonBuilder;
 import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
+import libgdx.controls.popup.RatingService;
 import libgdx.game.Game;
 import libgdx.graphics.GraphicUtils;
+import libgdx.implementations.iq.SkelGameRatingService;
 import libgdx.resources.FontManager;
 import libgdx.resources.Resource;
 import libgdx.resources.dimen.MainDimen;
@@ -24,6 +26,7 @@ public class MainMenuScreen extends AbstractScreen {
 
     @Override
     public void buildStage() {
+        new SkelGameRatingService(this).appLaunched();
         addButtons();
     }
 
