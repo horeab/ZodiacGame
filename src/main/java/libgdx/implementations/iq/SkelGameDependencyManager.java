@@ -2,13 +2,11 @@ package libgdx.implementations.iq;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Scanner;
 
-import libgdx.campaign.CampaignGameDependencyManager;
-import libgdx.campaign.LettersCampaignLevelEnum;
-import libgdx.campaign.LettersQuestionCategoryEnum;
-import libgdx.campaign.LettersQuestionDifficultyLevel;
-import libgdx.campaign.StarsService;
+import libgdx.campaign.*;
 import libgdx.resources.IncrementingRes;
+import libgdx.utils.EnumUtils;
 
 public class SkelGameDependencyManager extends CampaignGameDependencyManager {
 
@@ -16,6 +14,22 @@ public class SkelGameDependencyManager extends CampaignGameDependencyManager {
     public List<? extends IncrementingRes> getIncrementResList() {
         List<IncrementingRes> list = new ArrayList<>();
         return list;
+    }
+
+    @Override
+    protected String allQuestionText() {
+        QuestionConfigFileHandler questionConfigFileHandler = new QuestionConfigFileHandler();
+        StringBuilder text = new StringBuilder();
+        for (QuestionCategory category : (QuestionCategory[]) EnumUtils.getValues(SkelGame.getInstance().getSubGameDependencyManager().getQuestionCategoryTypeEnum())) {
+            for (QuestionDifficulty difficultyLevel : (QuestionDifficulty[]) EnumUtils.getValues(SkelGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum())) {
+                Scanner scanner = new Scanner(questionConfigFileHandler.getFileText(difficultyLevel, category));
+                while (scanner.hasNextLine()) {
+                    text.append(scanner.nextLine());
+                }
+                scanner.close();
+            }
+        }
+        return text.toString();
     }
 
     @Override

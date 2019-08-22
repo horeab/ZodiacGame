@@ -10,7 +10,7 @@ import libgdx.resources.ResourceService;
 import libgdx.screens.AbstractScreen;
 import libgdx.transactions.TransactionsService;
 
-public class SkelGameMainDependencyManager extends MainDependencyManager<ScreenManager, AbstractScreen, Resource, GameIdEnum> {
+public class SkelGameMainDependencyManager extends MainDependencyManager<ScreenManager, AbstractScreen, SkelGameLabel, Resource, GameIdEnum> {
 
     @Override
     public Class<Resource> getMainResourcesClass() {
@@ -25,6 +25,11 @@ public class SkelGameMainDependencyManager extends MainDependencyManager<ScreenM
     @Override
     public ResourceService createResourceService() {
         return new SkelGameResourceService();
+    }
+
+    @Override
+    public Class<SkelGameLabel> getGameLabelClass() {
+        return SkelGameLabel.class;
     }
 
     @Override
