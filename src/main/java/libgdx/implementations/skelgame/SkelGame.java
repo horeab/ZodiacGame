@@ -1,15 +1,16 @@
-package libgdx.implementations.iq;
+package libgdx.implementations.skelgame;
 
 
+import libgdx.campaign.CampaignGame;
 import libgdx.constants.GameIdEnum;
 import libgdx.game.Game;
 import libgdx.game.ScreenManager;
 import libgdx.game.external.AppInfoService;
 import libgdx.game.external.BillingService;
 import libgdx.game.external.FacebookService;
-import libgdx.screens.AbstractScreen;
+import libgdx.screen.AbstractScreen;
 
-public class SkelGame extends Game<AppInfoService,
+public class SkelGame extends CampaignGame<AppInfoService,
         SkelGameMainDependencyManager,
         SkelGameDependencyManager,
         AbstractScreen,

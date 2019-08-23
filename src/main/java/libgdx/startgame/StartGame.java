@@ -1,7 +1,7 @@
 package libgdx.startgame;
 
 import libgdx.constants.GameIdEnum;
-import libgdx.implementations.iq.SkelGame;
+import libgdx.implementations.skelgame.SkelGame;
 import libgdx.utils.startgame.test.DefaultAppInfoService;
 import libgdx.utils.startgame.test.DefaultBillingService;
 import libgdx.utils.startgame.test.DefaultFacebookService;

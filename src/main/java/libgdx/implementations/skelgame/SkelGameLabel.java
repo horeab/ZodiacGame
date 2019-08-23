@@ -1,4 +1,4 @@
-package libgdx.implementations.iq;
+package libgdx.implementations.skelgame;
 
 import libgdx.game.Game;
 import libgdx.resources.gamelabel.GameLabelUtils;

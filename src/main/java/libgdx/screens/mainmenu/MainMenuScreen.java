@@ -12,17 +12,17 @@ import libgdx.controls.button.MyButton;
 import libgdx.controls.button.builders.BackButtonBuilder;
 import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
-import libgdx.controls.popup.RatingService;
 import libgdx.game.Game;
+import libgdx.game.ScreenManager;
 import libgdx.graphics.GraphicUtils;
-import libgdx.implementations.iq.SkelGameRatingService;
+import libgdx.implementations.skelgame.SkelGameRatingService;
 import libgdx.resources.FontManager;
 import libgdx.resources.Resource;
 import libgdx.resources.dimen.MainDimen;
-import libgdx.screens.AbstractScreen;
+import libgdx.screen.AbstractScreen;
 import libgdx.utils.ScreenDimensionsManager;
 
-public class MainMenuScreen extends AbstractScreen {
+public class MainMenuScreen extends AbstractScreen<ScreenManager> {
 
     @Override
     public void buildStage() {

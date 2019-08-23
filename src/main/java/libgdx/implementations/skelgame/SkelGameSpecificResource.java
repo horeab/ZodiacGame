@@ -1,6 +1,5 @@
-package libgdx.implementations.iq;
+package libgdx.implementations.skelgame;
 
-import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.utils.I18NBundle;
 
 import libgdx.game.Game;

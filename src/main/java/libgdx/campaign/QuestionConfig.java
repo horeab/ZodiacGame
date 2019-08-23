@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import libgdx.implementations.iq.SkelGame;
+import libgdx.implementations.skelgame.SkelGame;
 import libgdx.utils.EnumUtils;
 
 public class QuestionConfig {
@@ -15,8 +15,8 @@ public class QuestionConfig {
     private List<String> c = new ArrayList<>();
 
     public QuestionConfig() {
-        this(new ArrayList<QuestionDifficulty>(Arrays.asList(EnumUtils.getValues((SkelGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum())))),
-                new ArrayList<QuestionCategory>(Arrays.asList(EnumUtils.getValues(SkelGame.getInstance().getSubGameDependencyManager().getQuestionCategoryTypeEnum()))));
+        this(new ArrayList<QuestionDifficulty>(Arrays.asList(EnumUtils.getValues((CampaignGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum())))),
+                new ArrayList<QuestionCategory>(Arrays.asList(EnumUtils.getValues(CampaignGame.getInstance().getSubGameDependencyManager().getQuestionCategoryTypeEnum()))));
     }
 
     public QuestionConfig(QuestionCategory questionCategory) {
@@ -24,7 +24,7 @@ public class QuestionConfig {
     }
 
     public QuestionConfig(QuestionDifficulty questionDifficulty) {
-        this(Collections.singletonList(questionDifficulty), new ArrayList<QuestionCategory>(Arrays.asList(EnumUtils.getValues(SkelGame.getInstance().getSubGameDependencyManager().getQuestionCategoryTypeEnum()))));
+        this(Collections.singletonList(questionDifficulty), new ArrayList<QuestionCategory>(Arrays.asList(EnumUtils.getValues(CampaignGame.getInstance().getSubGameDependencyManager().getQuestionCategoryTypeEnum()))));
     }
 
     public QuestionConfig(QuestionDifficulty QuestionDifficulty, QuestionCategory questionCategory) {
@@ -33,7 +33,7 @@ public class QuestionConfig {
 
 
     public QuestionConfig(List<QuestionCategory> questionCategory) {
-        this(new ArrayList<QuestionDifficulty>(Arrays.asList(EnumUtils.getValues(SkelGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum()))), questionCategory);
+        this(new ArrayList<QuestionDifficulty>(Arrays.asList(EnumUtils.getValues(CampaignGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum()))), questionCategory);
     }
 
     public QuestionConfig(QuestionDifficulty QuestionDifficulty, List<QuestionCategory> questionCategory) {
@@ -72,13 +72,13 @@ public class QuestionConfig {
     private QuestionDifficulty getRandomQuestionDifficulty() {
         ArrayList<String> list = new ArrayList<String>(l);
         Collections.shuffle(list);
-        return (QuestionDifficulty) EnumUtils.getEnumValue(SkelGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum(), list.get(0));
+        return (QuestionDifficulty) EnumUtils.getEnumValue(CampaignGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum(), list.get(0));
     }
 
     private QuestionCategory getRandomQuestionCategory() {
         ArrayList<String> list = new ArrayList<String>(c);
         Collections.shuffle(list);
-        return (QuestionCategory) EnumUtils.getEnumValue(SkelGame.getInstance().getSubGameDependencyManager().getQuestionCategoryTypeEnum(), list.get(0));
+        return (QuestionCategory) EnumUtils.getEnumValue(CampaignGame.getInstance().getSubGameDependencyManager().getQuestionCategoryTypeEnum(), list.get(0));
     }
 
     @Override

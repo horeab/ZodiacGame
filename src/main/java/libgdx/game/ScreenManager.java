@@ -1,7 +1,5 @@
 package libgdx.game;
 
-import libgdx.campaign.CampaignLevel;
-import libgdx.campaign.LettersCampaignLevelEnum;
 import libgdx.screen.AbstractScreenManager;
 import libgdx.screens.ScreenTypeEnum;
 

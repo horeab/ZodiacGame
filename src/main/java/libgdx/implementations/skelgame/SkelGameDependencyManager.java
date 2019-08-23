@@ -1,4 +1,4 @@
-package libgdx.implementations.iq;
+package libgdx.implementations.skelgame;
 
 import java.util.ArrayList;
 import java.util.List;

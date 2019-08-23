@@ -2,7 +2,7 @@ package libgdx.constants;
 
 import libgdx.game.GameId;
 import libgdx.game.SubGameDependencyManager;
-import libgdx.implementations.iq.SkelGameDependencyManager;
+import libgdx.implementations.skelgame.SkelGameDependencyManager;
 
 public enum GameIdEnum implements GameId {
 

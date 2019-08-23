@@ -1,4 +1,4 @@
-package libgdx.implementations.iq;
+package libgdx.implementations.skelgame;
 
 import libgdx.constants.GameIdEnum;
 import libgdx.controls.labelimage.InventoryTableBuilderCreator;
@@ -7,7 +7,7 @@ import libgdx.game.MainDependencyManager;
 import libgdx.game.ScreenManager;
 import libgdx.resources.Resource;
 import libgdx.resources.ResourceService;
-import libgdx.screens.AbstractScreen;
+import libgdx.screen.AbstractScreen;
 import libgdx.transactions.TransactionsService;
 
 public class SkelGameMainDependencyManager extends MainDependencyManager<ScreenManager, AbstractScreen, SkelGameLabel, Resource, GameIdEnum> {

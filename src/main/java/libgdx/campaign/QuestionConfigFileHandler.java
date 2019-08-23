@@ -7,7 +7,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import libgdx.game.Game;
-import libgdx.implementations.iq.SkelGame;
+import libgdx.implementations.skelgame.SkelGame;
 import libgdx.utils.EnumUtils;
 
 public class QuestionConfigFileHandler {
@@ -19,7 +19,7 @@ public class QuestionConfigFileHandler {
 
     public List<QuestionDifficulty> getQuestionDifficultiesForCategory(QuestionCategory questionCategory) {
         List<QuestionDifficulty> questionDifficulties = new ArrayList<>();
-        for (QuestionDifficulty questionDifficulty : (QuestionDifficulty[]) EnumUtils.getValues(SkelGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum())) {
+        for (QuestionDifficulty questionDifficulty : (QuestionDifficulty[]) EnumUtils.getValues(CampaignGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum())) {
             if (questionConfigExists(questionDifficulty, questionCategory)) {
                 questionDifficulties.add(questionDifficulty);
             }
@@ -29,7 +29,7 @@ public class QuestionConfigFileHandler {
 
     public List<QuestionCategory> getQuestionCategoriesForDifficulty(QuestionDifficulty questionDifficulty) {
         List<QuestionCategory> questionCategories = new ArrayList<>();
-        for (QuestionCategory questionCategory : (QuestionCategory[]) EnumUtils.getValues(SkelGame.getInstance().getDependencyManager().getQuestionCategoryTypeEnum())) {
+        for (QuestionCategory questionCategory : (QuestionCategory[]) EnumUtils.getValues(CampaignGame.getInstance().getSubGameDependencyManager().getQuestionCategoryTypeEnum())) {
             if (questionConfigExists(questionDifficulty, questionCategory)) {
                 questionCategories.add(questionCategory);
             }
