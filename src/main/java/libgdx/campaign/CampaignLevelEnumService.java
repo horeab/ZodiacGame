@@ -1,8 +1,9 @@
 package libgdx.campaign;
 
-import libgdx.implementations.skelgame.SkelGame;
 import libgdx.implementations.skelgame.SkelGameButtonSkin;
+import libgdx.resources.Res;
 import libgdx.resources.Resource;
+import libgdx.resources.SpecificResource;
 import libgdx.resources.gamelabel.SpecificPropertiesUtils;
 import libgdx.utils.EnumUtils;
 
@@ -14,6 +15,20 @@ public class CampaignLevelEnumService {
 
     public CampaignLevelEnumService(CampaignLevel campaignLevel) {
         this.campaignLevel = campaignLevel;
+    }
+
+    public static CampaignLevel getCampaignLevelForDiffAndCat(QuestionDifficulty difficultyLevel, QuestionCategory category) {
+        return (CampaignLevel) EnumUtils.getEnumValue(CampaignGame.getInstance().getSubGameDependencyManager().getCampaignLevelTypeEnum(), "LEVEL_" + difficultyLevel.getIndex() + "_" + category.getIndex());
+    }
+
+    public static CampaignLevel getNextLevel(CampaignLevel currentCampaignLevelEnum) {
+        CampaignLevel[] values = (CampaignLevel[]) EnumUtils.getValues(CampaignGame.getInstance().getSubGameDependencyManager().getCampaignLevelTypeEnum());
+        for (CampaignLevel campaignLevelEnum : values) {
+            if (currentCampaignLevelEnum != null && campaignLevelEnum.getIndex() == currentCampaignLevelEnum.getIndex() + 1) {
+                return campaignLevelEnum;
+            }
+        }
+        return null;
     }
 
     public String getLabelText() {
@@ -28,17 +43,16 @@ public class CampaignLevelEnumService {
         return EnumUtils.getEnumValue(SkelGameButtonSkin.class, "CAMPAIGN_LEVEL_" + getCategory());
     }
 
-    public QuestionConfig getQuestionConfig() {
+    public QuestionConfig getQuestionConfig(int nrOfQuestions) {
         QuestionDifficulty difficulty = (QuestionDifficulty) EnumUtils.getEnumValue(CampaignGame.getInstance().getSubGameDependencyManager().getQuestionDifficultyTypeEnum(), "_" + getDifficulty());
         QuestionConfig questionConfig;
         if (getCategory() != null) {
-            QuestionCategory category = (QuestionCategory) EnumUtils.getEnumValue(CampaignGame.getInstance().getSubGameDependencyManager().getQuestionCategoryTypeEnum(), "CAT" + getCategory());
+            QuestionCategory category = (QuestionCategory) EnumUtils.getEnumValue(CampaignGame.getInstance().getSubGameDependencyManager().getQuestionCategoryTypeEnum(), "cat" + getCategory());
             questionConfig = new QuestionConfig(difficulty, category);
         } else {
             questionConfig = new QuestionConfig(difficulty);
         }
-
-
+        questionConfig.setA(nrOfQuestions);
         return questionConfig;
     }
 
@@ -56,6 +70,11 @@ public class CampaignLevelEnumService {
 
     public Integer getCategory() {
         return getCategory(campaignLevel);
+    }
+
+
+    public Res getIcon() {
+        return (SpecificResource) EnumUtils.getEnumValue(CampaignGame.getInstance().getSubGameDependencyManager().getSpecificResourceTypeEnum(), "campaign_level_" + getDifficulty() + "_" + getCategory());
     }
 
     private static String[] getSplit(CampaignLevel campaignLevel) {

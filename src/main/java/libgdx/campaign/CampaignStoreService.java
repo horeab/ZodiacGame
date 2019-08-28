@@ -3,7 +3,9 @@ package libgdx.campaign;
 import java.util.ArrayList;
 import java.util.List;
 
+import libgdx.game.Game;
 import libgdx.preferences.PreferencesService;
+import libgdx.utils.EnumUtils;
 
 class CampaignStoreService {
 
@@ -26,12 +28,11 @@ class CampaignStoreService {
 
     List<CampaignStoreLevel> getAllCampaignLevels() {
         ArrayList<CampaignStoreLevel> levels = new ArrayList<>();
-        for (LettersCampaignLevelEnum levelEnum : LettersCampaignLevelEnum.values()) {
+        for (CampaignLevel levelEnum : (CampaignLevel[]) EnumUtils.getValues(CampaignGame.getInstance().getSubGameDependencyManager().getCampaignLevelTypeEnum())) {
             int val = preferencesService.getPreferences().getInteger(formCampaignLevelKey(levelEnum), -1);
             if (val != -1) {
                 CampaignStoreLevel level = new CampaignStoreLevel(levelEnum);
-                level.setCrosswordLevel(val);
-                level.setStarsWon(preferencesService.getPreferences().getInteger(formCampaignLevelStarsWonKey(levelEnum)));
+                level.setStarsWon(getStarsWon(levelEnum));
                 level.setStatus(preferencesService.getPreferences().getInteger(formCampaignLevelStatusKey(levelEnum)));
                 levels.add(level);
             }
@@ -39,12 +40,16 @@ class CampaignStoreService {
         return levels;
     }
 
+    public int getStarsWon(CampaignLevel levelEnum) {
+        return preferencesService.getPreferences().getInteger(formCampaignLevelStarsWonKey(levelEnum));
+    }
+
     Integer getCrosswordLevel(CampaignLevel campaignLevelEnum) {
         return preferencesService.getPreferences().getInteger(formCampaignLevelKey(campaignLevelEnum), -1);
     }
 
-    void updateCrosswordLevel(CampaignLevel campaignLevelEnum, int crosswordLevel) {
-        preferencesService.putInteger(formCampaignLevelKey(campaignLevelEnum), crosswordLevel);
+    void updateLevel(CampaignLevel campaignLevelEnum) {
+        preferencesService.putInteger(formCampaignLevelKey(campaignLevelEnum), campaignLevelEnum.getIndex());
     }
 
     void updateStatus(CampaignLevel campaignLevelEnum, CampaignLevelStatusEnum campaignLevelStatusEnum) {
