@@ -5,6 +5,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
 import com.badlogic.gdx.scenes.scene2d.Touchable;
 import com.badlogic.gdx.scenes.scene2d.actions.Actions;
+import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
@@ -30,6 +31,8 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
     private BirthDatePopup birthDatePopup;
 
     private Zodiac myZodiac;
+    private Zodiac partnerZodiac;
+
     private Table allZodiacTable;
 
     public MainMenuScreen(Zodiac myZodiac) {
@@ -41,8 +44,18 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         if (myZodiac == null) {
             new SkelGameRatingService(this).appLaunched();
         }
-        birthDatePopup = new BirthDatePopup(this, myZodiac == null);
         createAllZodiacTable();
+    }
+
+    public void setPartnerZodiac(Zodiac partnerZodiac) {
+        this.partnerZodiac = partnerZodiac;
+        allZodiacTable.addAction(Actions.sequence(Actions.fadeOut(0.5f), Utils.createRunnableAction(new Runnable() {
+            @Override
+            public void run() {
+                createCompTable();
+            }
+        })));
+        birthDatePopup = null;
     }
 
     public void setMyZodiac(Zodiac myZodiac) {
@@ -53,6 +66,17 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
                 createAllZodiacTable();
             }
         })));
+        birthDatePopup = null;
+    }
+
+    private void createCompTable() {
+        Table table = new Table();
+        table.setFillParent(true);
+        table.add(getZodiacImage(myZodiac));
+        table.add(getZodiacImage(partnerZodiac));
+        table.row();
+        table.add(new MyWrappedLabel(myZodiac.getZodiacComp().forZodiac(partnerZodiac).name())).colspan(2);
+        addActor(table);
     }
 
     private void createAllZodiacTable() {
@@ -70,12 +94,16 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         }
         allZodiacTable.row();
         allZodiacTable.add(new MyWrappedLabel("OR")).pad(marginDimen * 3).colspan(3).row();
+        final MainMenuScreen mainMenuScreen = this;
         MyButton useBirthDateButton = new ButtonBuilder()
                 .setSingleLineText("Birth date", FontManager.getSmallFontDim()).setDefaultButton().build();
 
         useBirthDateButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
+                if (birthDatePopup == null) {
+                    birthDatePopup = new BirthDatePopup(mainMenuScreen, myZodiac == null);
+                }
                 birthDatePopup.addToPopupManager();
             }
         });
@@ -99,6 +127,8 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
             public void clicked(InputEvent event, float x, float y) {
                 if (myZodiac == null) {
                     setMyZodiac(zodiac);
+                } else {
+                    setPartnerZodiac(zodiac);
                 }
             }
         });
@@ -107,9 +137,13 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         float zIconDimen = marginDimen * 7;
         table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setFontScale(FontManager.getSmallFontDim())
                 .setText(StringUtils.capitalize(SkelGameLabel.valueOf(zodiac.name()).getText())).build())).width(zIconDimen).row();
-        table.add(GraphicUtils.getImage(SkelGameSpecificResource.valueOf(zodiac.name()))).pad(marginDimen).height(zIconDimen / 1.1f).width(zIconDimen);
+        table.add(getZodiacImage(zodiac)).pad(marginDimen).height(zIconDimen / 1.1f).width(zIconDimen);
         return table;
 
+    }
+
+    private Image getZodiacImage(Zodiac zodiac) {
+        return GraphicUtils.getImage(SkelGameSpecificResource.valueOf(zodiac.name()));
     }
 
     @Override

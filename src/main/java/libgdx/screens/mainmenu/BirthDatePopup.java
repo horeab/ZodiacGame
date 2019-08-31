@@ -63,7 +63,7 @@ public class BirthDatePopup extends MyPopup<MainMenuScreen, ScreenManager> {
                     if (myZodiac) {
                         getScreen().setMyZodiac(zodiac);
                     } else {
-
+                        getScreen().setPartnerZodiac(zodiac);
                     }
                 }
             }
@@ -76,8 +76,8 @@ public class BirthDatePopup extends MyPopup<MainMenuScreen, ScreenManager> {
         super.addText();
         getContentTable().add(new MyWrappedLabel("Day"));
         getContentTable().add(new MyWrappedLabel("Month")).row();
-        getContentTable().add(monthMyTextField);
-        getContentTable().add(dayMyTextField).row();
+        getContentTable().add(dayMyTextField);
+        getContentTable().add(monthMyTextField).row();
     }
 
     @Override
