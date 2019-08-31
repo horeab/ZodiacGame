@@ -14,7 +14,8 @@ public class QuestionConfigFileHandler {
 
 
     public String getFileText(QuestionDifficulty difficultyLevelToCreate, QuestionCategory categoryEnumToCreate) {
-        return getInternalFile(difficultyLevelToCreate, categoryEnumToCreate).readString();
+        return "";
+//        return getInternalFile(difficultyLevelToCreate, categoryEnumToCreate).readString();
     }
 
     public List<QuestionDifficulty> getQuestionDifficultiesForCategory(QuestionCategory questionCategory) {
