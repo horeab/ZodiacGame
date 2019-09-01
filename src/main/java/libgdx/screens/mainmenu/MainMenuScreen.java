@@ -195,15 +195,16 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
     }
 
     private Table createZodiacTable(final Zodiac zodiac) {
-        Table table = new Table();
+        final Table table = new Table();
         table.setTouchable(Touchable.enabled);
         table.addListener(new ClickListener() {
             @Override
             public void clicked(InputEvent event, float x, float y) {
                 if (myZodiac == null) {
                     setMyZodiac(zodiac);
-                } else {
+                } else if (partnerZodiac == null) {
                     setPartnerZodiac(zodiac);
+                    table.setTouchable(Touchable.disabled);
                 }
             }
         });
