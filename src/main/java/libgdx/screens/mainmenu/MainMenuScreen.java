@@ -9,7 +9,10 @@ import com.badlogic.gdx.scenes.scene2d.ui.Image;
 import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
+import com.badlogic.gdx.utils.Align;
 import libgdx.constants.Zodiac;
+import libgdx.constants.ZodiacCompStatus;
+import libgdx.controls.animations.ActorAnimation;
 import libgdx.controls.button.ButtonBuilder;
 import libgdx.controls.button.MyButton;
 import libgdx.controls.label.MyWrappedLabel;
@@ -23,11 +26,14 @@ import libgdx.resources.FontManager;
 import libgdx.resources.MainResource;
 import libgdx.resources.dimen.MainDimen;
 import libgdx.screen.AbstractScreen;
+import libgdx.utils.ScreenDimensionsManager;
 import libgdx.utils.Utils;
+import libgdx.utils.model.FontColor;
 import org.apache.commons.lang3.StringUtils;
 
 public class MainMenuScreen extends AbstractScreen<ScreenManager> {
 
+    public static final float EXTRA_INFO_DIMEN = MainDimen.horizontal_general_margin.getDimen() * 6;
     private BirthDatePopup birthDatePopup;
 
     private Zodiac myZodiac;
@@ -45,45 +51,114 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
             new SkelGameRatingService(this).appLaunched();
         }
         createAllZodiacTable();
+
+//        myZodiac = Zodiac.aries;
+//        partnerZodiac = Zodiac.cancer;
+//        createCompTable();
     }
 
     public void setPartnerZodiac(Zodiac partnerZodiac) {
         this.partnerZodiac = partnerZodiac;
-        allZodiacTable.addAction(Actions.sequence(Actions.fadeOut(0.5f), Utils.createRunnableAction(new Runnable() {
+        changeAllTableView(new Runnable() {
             @Override
             public void run() {
                 createCompTable();
             }
-        })));
+        });
         birthDatePopup = null;
+    }
+
+    private void changeAllTableView(Runnable newView) {
+        allZodiacTable.addAction(Actions.sequence(Actions.fadeOut(0.5f), Utils.createRunnableAction(newView)));
     }
 
     public void setMyZodiac(Zodiac myZodiac) {
         this.myZodiac = myZodiac;
-        allZodiacTable.addAction(Actions.sequence(Actions.fadeOut(0.5f), Utils.createRunnableAction(new Runnable() {
+        changeAllTableView(new Runnable() {
             @Override
             public void run() {
                 createAllZodiacTable();
             }
-        })));
+        });
         birthDatePopup = null;
     }
 
     private void createCompTable() {
+        allZodiacTable = new Table();
+        allZodiacTable.setFillParent(true);
+
+        int zPercent = 50;
+        allZodiacTable.add(createCompZodiacContainer(myZodiac)).height(ScreenDimensionsManager.getScreenHeightValue(zPercent)).growX();
+        allZodiacTable.add(createCompZodiacContainer(partnerZodiac)).height(ScreenDimensionsManager.getScreenHeightValue(zPercent)).growX();
+        allZodiacTable.row();
+        ZodiacCompStatus zodiacCompStatus = myZodiac.getZodiacComp().forZodiac(partnerZodiac);
+        float marginDimen = MainDimen.horizontal_general_margin.getDimen();
+        float compDimen = marginDimen * 20;
+        Table compTable = new Table();
+        compTable.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText(SkelGameLabel.valueOf("comp_" + zodiacCompStatus.name()).getText()).setFontScale(FontManager.getBigFontDim()).build()))
+                .row();
+        Image compImg = GraphicUtils.getImage(SkelGameSpecificResource.valueOf(zodiacCompStatus.name()));
+        compImg.setOrigin(Align.center);
+        compImg.setHeight(compDimen);
+        compImg.setWidth(compDimen);
+        if (zodiacCompStatus != ZodiacCompStatus.bd) {
+            new ActorAnimation(compImg, getAbstractScreen()).animateZoomInZoomOut();
+        }
+        Table imgTable = new Table();
+        imgTable.add(compImg).padTop(marginDimen).width(compDimen).height(compDimen);
+        compTable.add(imgTable).width(compDimen);
+        allZodiacTable.add(compTable).height(ScreenDimensionsManager.getScreenHeightValue(50)).growX().colspan(2);
+        addActor(allZodiacTable);
+    }
+
+    private Table createCompZodiacContainer(Zodiac zodiac) {
         Table table = new Table();
-        table.setFillParent(true);
-        table.add(getZodiacImage(myZodiac));
-        table.add(getZodiacImage(partnerZodiac));
-        table.row();
-        table.add(new MyWrappedLabel(myZodiac.getZodiacComp().forZodiac(partnerZodiac).name())).colspan(2);
-        addActor(table);
+        float marginDimen = MainDimen.horizontal_general_margin.getDimen();
+        float zodiacDimen = marginDimen * 13;
+        Table zodiacInfoTable = new Table();
+        zodiacInfoTable.setBackground(GraphicUtils.getNinePatch(MainResource.popup_background));
+        float zodiacPad = marginDimen * 2;
+        zodiacInfoTable.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setFontScale(FontManager.getBigFontDim())
+                .setText(StringUtils.capitalize(SkelGameLabel.valueOf("zod_" + zodiac.name()).getText())).build())).padLeft(zodiacPad).padRight(zodiacPad).width(zodiacDimen).row();
+        zodiacInfoTable.add(getZodiacImage(zodiac)).padLeft(zodiacPad).padRight(zodiacPad).height(zodiacDimen).width(zodiacDimen);
+        table.add(zodiacInfoTable).row();
+        table.add(createPlanetElement(zodiac)).padBottom(marginDimen * 2).row();
+        table.add(createAttrsTable(zodiac));
+        return table;
+    }
+
+    private Table createAttrsTable(Zodiac zodiac) {
+        Table table = new Table();
+        for (SkelGameLabel attr : zodiac.getAttrs()) {
+            table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText(StringUtils.capitalize(attr.getText())).setFontScale(FontManager.getSmallFontDim()).build())).width(EXTRA_INFO_DIMEN).row();
+        }
+        return table;
+    }
+
+    private Table createPlanetElement(Zodiac zodiac) {
+        Table table = new Table();
+        table.add(createExtraInfoTable(GraphicUtils.getImage(SkelGameSpecificResource.valueOf(zodiac.getElement().name())),
+                SkelGameLabel.valueOf("el_" + zodiac.getElement().name()).getText()));
+        table.add(createExtraInfoTable(GraphicUtils.getImage(SkelGameSpecificResource.valueOf(zodiac.getPlanet().name())),
+                SkelGameLabel.valueOf("pl_" + zodiac.getPlanet().name()).getText()));
+        return table;
+    }
+
+    private Table createExtraInfoTable(Image image, String label) {
+        Table table = new Table();
+        float marginDimen = MainDimen.horizontal_general_margin.getDimen();
+        table.add(image).pad(marginDimen).width(EXTRA_INFO_DIMEN).height(EXTRA_INFO_DIMEN).row();
+        table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder()
+                .setText(StringUtils.capitalize(label))
+                .setTextColor(FontColor.GRAY).build())).width(EXTRA_INFO_DIMEN);
+        return table;
     }
 
     private void createAllZodiacTable() {
         allZodiacTable = new Table();
         allZodiacTable.setFillParent(true);
         float marginDimen = MainDimen.horizontal_general_margin.getDimen();
-        String text = myZodiac == null ? "Select your sign" : "Select your partner sign";
+        String text = myZodiac == null ? SkelGameLabel.zd_my_zodiac.getText() : SkelGameLabel.zd_partner_zodiac.getText();
         MyWrappedLabel label = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText(text).setFontScale(FontManager.getBigFontDim()).build());
         allZodiacTable.add(label).pad(marginDimen).colspan(3).row();
         for (Zodiac zodiac : Zodiac.values()) {
@@ -93,10 +168,10 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
             }
         }
         allZodiacTable.row();
-        allZodiacTable.add(new MyWrappedLabel("OR")).pad(marginDimen * 3).colspan(3).row();
+        allZodiacTable.add(new MyWrappedLabel(SkelGameLabel.label_or.getText())).pad(marginDimen * 3).colspan(3).row();
         final MainMenuScreen mainMenuScreen = this;
         MyButton useBirthDateButton = new ButtonBuilder()
-                .setSingleLineText("Birth date", FontManager.getSmallFontDim()).setDefaultButton().build();
+                .setSingleLineText(SkelGameLabel.bd_birth_date.getText(), FontManager.getSmallFontDim()).setDefaultButton().build();
 
         useBirthDateButton.addListener(new ChangeListener() {
             @Override
@@ -136,7 +211,7 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         float marginDimen = MainDimen.horizontal_general_margin.getDimen();
         float zIconDimen = marginDimen * 7;
         table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setFontScale(FontManager.getSmallFontDim())
-                .setText(StringUtils.capitalize(SkelGameLabel.valueOf(zodiac.name()).getText())).build())).width(zIconDimen).row();
+                .setText(StringUtils.capitalize(SkelGameLabel.valueOf("zod_" + zodiac.name()).getText())).build())).width(zIconDimen).row();
         table.add(getZodiacImage(zodiac)).pad(marginDimen).height(zIconDimen / 1.1f).width(zIconDimen);
         return table;
 
@@ -148,7 +223,18 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
 
     @Override
     public void onBackKeyPress() {
-        Gdx.app.exit();
+        if (myZodiac == null) {
+            Gdx.app.exit();
+        } else {
+            myZodiac = null;
+            partnerZodiac = null;
+            changeAllTableView(new Runnable() {
+                @Override
+                public void run() {
+                    createAllZodiacTable();
+                }
+            });
+        }
     }
 
 }

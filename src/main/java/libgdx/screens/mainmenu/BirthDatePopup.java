@@ -14,6 +14,7 @@ import libgdx.controls.popup.MyPopup;
 import libgdx.controls.textfield.MyTextFieldBuilder;
 import libgdx.game.Game;
 import libgdx.game.ScreenManager;
+import libgdx.implementations.skelgame.SkelGameLabel;
 import libgdx.resources.FontManager;
 import libgdx.screen.AbstractScreen;
 import libgdx.screen.AbstractScreenManager;
@@ -57,7 +58,7 @@ public class BirthDatePopup extends MyPopup<MainMenuScreen, ScreenManager> {
                 }
                 Zodiac zodiac = Zodiac.getZodiac(day, month);
                 if (zodiac == null) {
-                    addActorsToFront(new WordAnimation().createLabelToAnimate("Wrong birth date!", FontColor.RED));
+                    addActorsToFront(new WordAnimation().createLabelToAnimate(SkelGameLabel.bd_birth_date_wrong.getText(), FontColor.RED));
                 } else {
                     hide();
                     if (myZodiac) {
@@ -74,8 +75,8 @@ public class BirthDatePopup extends MyPopup<MainMenuScreen, ScreenManager> {
     @Override
     protected void addText() {
         super.addText();
-        getContentTable().add(new MyWrappedLabel("Day"));
-        getContentTable().add(new MyWrappedLabel("Month")).row();
+        getContentTable().add(new MyWrappedLabel(SkelGameLabel.bd_day.getText()));
+        getContentTable().add(new MyWrappedLabel(SkelGameLabel.bd_month.getText())).row();
         getContentTable().add(dayMyTextField);
         getContentTable().add(monthMyTextField).row();
     }

@@ -10,21 +10,21 @@ import static libgdx.implementations.skelgame.SkelGameLabel.*;
 
 public enum Zodiac {
 
-    aries(ZodiacComp.aries, fire, Planet.mars, Arrays.asList(determined, effective, ambitious)),
-    leo(ZodiacComp.leo, fire, Planet.sun, Arrays.asList(warm, generous, faithful)),
-    sagittarius(ZodiacComp.sagittarius, fire, Planet.jupiter, Arrays.asList(philosophical, optimist)),
+    aries(ZodiacComp.aries, fire, Planet.mars, Arrays.asList(attr_determined, attr_effective, attr_ambitious)),
+    leo(ZodiacComp.leo, fire, Planet.sun, Arrays.asList(attr_warm, attr_generous, attr_faithful)),
+    sagittarius(ZodiacComp.sagittarius, fire, Planet.jupiter, Arrays.asList(attr_philosophical, attr_optimist)),
 
-    taurus(ZodiacComp.taurus, earth, Planet.venus, Arrays.asList(security, patience)),
-    virgo(ZodiacComp.virgo, earth, Planet.mercury, Arrays.asList(analytical, observant, thoughtful)),
-    capricorn(ZodiacComp.capricorn, earth, Planet.saturn, Arrays.asList(determined, dominant, practical)),
+    taurus(ZodiacComp.taurus, earth, Planet.venus, Arrays.asList(attr_security, attr_patience)),
+    virgo(ZodiacComp.virgo, earth, Planet.mercury, Arrays.asList(attr_analytical, attr_observant, attr_thoughtful)),
+    capricorn(ZodiacComp.capricorn, earth, Planet.saturn, Arrays.asList(attr_determined, attr_dominant, attr_practical)),
 
-    gemini(ZodiacComp.gemini, wind, Planet.mercury, Arrays.asList(communicative, changeable, intelligent)),
-    libra(ZodiacComp.libra, wind, Planet.venus, Arrays.asList(truth, beauty, perfection)),
-    aquarius(ZodiacComp.aquarius, wind, Planet.uranus, Arrays.asList(intellectual, humanitarian, duplicitous)),
+    gemini(ZodiacComp.gemini, wind, Planet.mercury, Arrays.asList(attr_communicative, attr_changeable, attr_intelligent)),
+    libra(ZodiacComp.libra, wind, Planet.venus, Arrays.asList(attr_truth, attr_beauty, attr_perfection)),
+    aquarius(ZodiacComp.aquarius, wind, Planet.uranus, Arrays.asList(attr_intellectual, attr_humanitarian, attr_duplicitous)),
 
-    cancer(ZodiacComp.cancer, water, Planet.moon, Arrays.asList(emotional, diplomatic, impulsive)),
-    scorpio(ZodiacComp.scorpio, water, Planet.pluto, Arrays.asList(purposeful, restless)),
-    pisces(ZodiacComp.pisces, water, Planet.neptune, Arrays.asList(imagination, indecision)),
+    cancer(ZodiacComp.cancer, water, Planet.moon, Arrays.asList(attr_emotional, attr_diplomatic, attr_impulsive)),
+    scorpio(ZodiacComp.scorpio, water, Planet.pluto, Arrays.asList(attr_purposeful, attr_restless)),
+    pisces(ZodiacComp.pisces, water, Planet.neptune, Arrays.asList(attr_imagination, attr_indecision)),
     ;
 
     private ZodiacComp zodiacComp;

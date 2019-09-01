@@ -39,7 +39,12 @@ public enum SkelGameSpecificResource implements SpecificResource {
     wind("images/wind.png", Texture.class),
     water("images/water.png", Texture.class),
     fire("images/fire.png", Texture.class),
-    earth("images/earth.png", Texture.class)
+    earth("images/earth.png", Texture.class),
+
+    gr("images/gr.png", Texture.class),
+    ok("images/ok.png", Texture.class),
+    bd("images/bd.png", Texture.class)
+
     ;
     // @formatter:on
 
