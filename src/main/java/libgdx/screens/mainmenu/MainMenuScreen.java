@@ -10,6 +10,7 @@ import com.badlogic.gdx.scenes.scene2d.ui.Table;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import com.badlogic.gdx.scenes.scene2d.utils.ClickListener;
 import com.badlogic.gdx.utils.Align;
+import libgdx.constants.Language;
 import libgdx.constants.Zodiac;
 import libgdx.constants.ZodiacCompStatus;
 import libgdx.controls.animations.ActorAnimation;
@@ -17,6 +18,7 @@ import libgdx.controls.button.ButtonBuilder;
 import libgdx.controls.button.MyButton;
 import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
+import libgdx.game.Game;
 import libgdx.game.ScreenManager;
 import libgdx.graphics.GraphicUtils;
 import libgdx.implementations.skelgame.SkelGameLabel;
@@ -31,7 +33,12 @@ import libgdx.utils.Utils;
 import libgdx.utils.model.FontColor;
 import org.apache.commons.lang3.StringUtils;
 
+import java.util.Arrays;
+import java.util.List;
+
 public class MainMenuScreen extends AbstractScreen<ScreenManager> {
+
+    private List<String> SMALL_FONT_LANGS = Arrays.asList(Language.th.name());
 
     public static final float EXTRA_INFO_DIMEN = MainDimen.horizontal_general_margin.getDimen() * 6;
     private BirthDatePopup birthDatePopup;
@@ -87,13 +94,13 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         allZodiacTable = new Table();
         allZodiacTable.setFillParent(true);
 
-        int zPercent = 50;
+        int zPercent = smallFontLang() ? 60 : 50;
         allZodiacTable.add(createCompZodiacContainer(myZodiac)).height(ScreenDimensionsManager.getScreenHeightValue(zPercent)).growX();
         allZodiacTable.add(createCompZodiacContainer(partnerZodiac)).height(ScreenDimensionsManager.getScreenHeightValue(zPercent)).growX();
         allZodiacTable.row();
         ZodiacCompStatus zodiacCompStatus = myZodiac.getZodiacComp().forZodiac(partnerZodiac);
         float marginDimen = MainDimen.horizontal_general_margin.getDimen();
-        float compDimen = marginDimen * 20;
+        float compDimen = smallFontLang() ? marginDimen * 13 : marginDimen * 20;
         Table compTable = new Table();
         compTable.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText(SkelGameLabel.valueOf("comp_" + zodiacCompStatus.name()).getText()).setFontScale(FontManager.getBigFontDim()).build()))
                 .row();
@@ -107,7 +114,7 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         Table imgTable = new Table();
         imgTable.add(compImg).padTop(marginDimen).width(compDimen).height(compDimen);
         compTable.add(imgTable).width(compDimen);
-        allZodiacTable.add(compTable).height(ScreenDimensionsManager.getScreenHeightValue(50)).growX().colspan(2);
+        allZodiacTable.add(compTable).height(ScreenDimensionsManager.getScreenHeightValue( smallFontLang() ? 40 : 50)).growX().colspan(2);
         addActor(allZodiacTable);
     }
 
@@ -159,7 +166,8 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         allZodiacTable.setFillParent(true);
         float marginDimen = MainDimen.horizontal_general_margin.getDimen();
         String text = myZodiac == null ? SkelGameLabel.zd_my_zodiac.getText() : SkelGameLabel.zd_partner_zodiac.getText();
-        MyWrappedLabel label = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText(text).setFontScale(FontManager.getBigFontDim()).build());
+        float multiplier = smallFontLang() ? 1f : 1.25f;
+        MyWrappedLabel label = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setText(text).setFontScale(FontManager.calculateMultiplierStandardFontSize(multiplier)).build());
         allZodiacTable.add(label).pad(marginDimen).colspan(3).row();
         for (Zodiac zodiac : Zodiac.values()) {
             allZodiacTable.add(createZodiacTable(zodiac)).pad(marginDimen);
@@ -168,7 +176,7 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
             }
         }
         allZodiacTable.row();
-        allZodiacTable.add(new MyWrappedLabel(SkelGameLabel.label_or.getText())).pad(marginDimen * 3).colspan(3).row();
+        allZodiacTable.add(new MyWrappedLabel(SkelGameLabel.label_or.getText())).pad(marginDimen * 1.5f).colspan(3).row();
         final MainMenuScreen mainMenuScreen = this;
         MyButton useBirthDateButton = new ButtonBuilder()
                 .setSingleLineText(SkelGameLabel.bd_birth_date.getText(), FontManager.getSmallFontDim()).setDefaultButton().build();
@@ -192,6 +200,10 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
             }
         }), Actions.fadeIn(0.5f)));
         addActor(allZodiacTable);
+    }
+
+    private boolean smallFontLang() {
+        return SMALL_FONT_LANGS.contains(Game.getInstance().getAppInfoService().getLanguage());
     }
 
     private Table createZodiacTable(final Zodiac zodiac) {
