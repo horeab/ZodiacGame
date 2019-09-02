@@ -18,8 +18,11 @@ import libgdx.controls.button.ButtonBuilder;
 import libgdx.controls.button.MyButton;
 import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
+import libgdx.dbapi.GameStatsDbApiService;
+import libgdx.dbapi.UniqueDbOperationContainer;
 import libgdx.game.Game;
 import libgdx.game.ScreenManager;
+import libgdx.game.model.BaseUserInfo;
 import libgdx.graphics.GraphicUtils;
 import libgdx.implementations.skelgame.SkelGameLabel;
 import libgdx.implementations.skelgame.SkelGameRatingService;
@@ -28,6 +31,7 @@ import libgdx.resources.FontManager;
 import libgdx.resources.MainResource;
 import libgdx.resources.dimen.MainDimen;
 import libgdx.screen.AbstractScreen;
+import libgdx.utils.DateUtils;
 import libgdx.utils.ScreenDimensionsManager;
 import libgdx.utils.Utils;
 import libgdx.utils.model.FontColor;
@@ -37,6 +41,8 @@ import java.util.Arrays;
 import java.util.List;
 
 public class MainMenuScreen extends AbstractScreen<ScreenManager> {
+
+    private BaseUserInfo currentUser;
 
     private List<String> SMALL_FONT_LANGS = Arrays.asList(Language.th.name());
 
@@ -54,6 +60,7 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
 
     @Override
     public void buildStage() {
+        currentUser = Game.getInstance().getCurrentUser();
         if (myZodiac == null) {
             new SkelGameRatingService(this).appLaunched();
         }
@@ -91,6 +98,9 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
     }
 
     private void createCompTable() {
+        if (currentUser != null) {
+            new GameStatsDbApiService().incrementGameStatsQuestionsWon(currentUser.getId(), Long.valueOf(DateUtils.getNowMillis()).toString());
+        }
         allZodiacTable = new Table();
         allZodiacTable.setFillParent(true);
 
@@ -114,7 +124,7 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         Table imgTable = new Table();
         imgTable.add(compImg).padTop(marginDimen).width(compDimen).height(compDimen);
         compTable.add(imgTable).width(compDimen);
-        allZodiacTable.add(compTable).height(ScreenDimensionsManager.getScreenHeightValue( smallFontLang() ? 40 : 50)).growX().colspan(2);
+        allZodiacTable.add(compTable).height(ScreenDimensionsManager.getScreenHeightValue(smallFontLang() ? 40 : 50)).growX().colspan(2);
         addActor(allZodiacTable);
     }
 
@@ -162,6 +172,12 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
     }
 
     private void createAllZodiacTable() {
+        if (myZodiac == null) {
+            if (currentUser != null) {
+                new GameStatsDbApiService().incrementGameStatsQuestionsStarted(currentUser.getId(), Long.valueOf(DateUtils.getNowMillis()).toString());
+            }
+        }
+
         allZodiacTable = new Table();
         allZodiacTable.setFillParent(true);
         float marginDimen = MainDimen.horizontal_general_margin.getDimen();

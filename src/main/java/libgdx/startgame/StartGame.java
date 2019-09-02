@@ -16,7 +16,7 @@ public class StartGame {
                 new DefaultAppInfoService() {
                     @Override
                     public String getGameIdPrefix() {
-                        return GameIdEnum.skelgame.name();
+                        return GameIdEnum.zodiac.name();
                     }
 
                     @Override
@@ -31,7 +31,7 @@ public class StartGame {
 
                     @Override
                     public String getLanguage() {
-                        return Language.pl.name();
+                        return Language.cs.name();
                     }
                 });
         libgdx.utils.startgame.StartGame.main(game, args);
