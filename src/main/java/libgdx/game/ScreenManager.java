@@ -13,7 +13,4 @@ public class ScreenManager extends AbstractScreenManager {
 //        showCampaignScreen();
     }
 
-    public void showPartnerMainScreen(Zodiac zodiac) {
-        showScreen(ScreenTypeEnum.MAIN_MENU_SCREEN, zodiac);
-    }
 }

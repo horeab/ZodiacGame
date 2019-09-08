@@ -31,7 +31,7 @@ public class StartGame {
 
                     @Override
                     public String getLanguage() {
-                        return Language.cs.name();
+                        return Language.zh.name();
                     }
                 });
         libgdx.utils.startgame.StartGame.main(game, args);

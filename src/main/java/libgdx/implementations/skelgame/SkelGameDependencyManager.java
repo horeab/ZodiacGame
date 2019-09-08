@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Scanner;
 
 import libgdx.campaign.*;
+import libgdx.constants.Contrast;
 import libgdx.resources.IncrementingRes;
 import libgdx.utils.EnumUtils;
 
@@ -14,6 +15,11 @@ public class SkelGameDependencyManager extends CampaignGameDependencyManager {
     public List<? extends IncrementingRes> getIncrementResList() {
         List<IncrementingRes> list = new ArrayList<>();
         return list;
+    }
+
+    @Override
+    public Contrast getScreenContrast() {
+        return Contrast.DARK;
     }
 
     @Override

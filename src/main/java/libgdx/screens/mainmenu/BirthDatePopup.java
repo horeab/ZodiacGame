@@ -4,6 +4,7 @@ import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.ui.TextField;
 import com.badlogic.gdx.scenes.scene2d.utils.ChangeListener;
 import libgdx.campaign.CampaignGame;
+import libgdx.constants.Contrast;
 import libgdx.constants.Zodiac;
 import libgdx.controls.MyTextField;
 import libgdx.controls.animations.WordAnimation;
@@ -44,7 +45,7 @@ public class BirthDatePopup extends MyPopup<MainMenuScreen, ScreenManager> {
 
     @Override
     public void addButtons() {
-        MyButton button = new ButtonBuilder().setSingleLineText("OK", FontManager.getSmallFontDim()).setDefaultButton().build();
+        MyButton button = new ButtonBuilder().setContrast(Contrast.DARK).setSingleLineText("OK", FontManager.getSmallFontDim()).setDefaultButton().build();
         button.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
