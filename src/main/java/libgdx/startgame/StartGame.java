@@ -20,6 +20,11 @@ public class StartGame {
                     }
 
                     @Override
+                    public boolean isScreenShotMode() {
+                        return true;
+                    }
+
+                    @Override
                     public float gameScreenTopMargin() {
                         return super.gameScreenTopMargin();
                     }
@@ -31,7 +36,7 @@ public class StartGame {
 
                     @Override
                     public String getLanguage() {
-                        return Language.zh.name();
+                        return Language.cs.name();
                     }
                 });
         libgdx.utils.startgame.StartGame.main(game, args);

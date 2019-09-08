@@ -21,7 +21,6 @@ import libgdx.controls.button.MyButton;
 import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
 import libgdx.dbapi.GameStatsDbApiService;
-import libgdx.dbapi.UniqueDbOperationContainer;
 import libgdx.game.Game;
 import libgdx.game.ScreenManager;
 import libgdx.game.model.BaseUserInfo;
@@ -209,10 +208,14 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         useBirthDateButton.addListener(new ChangeListener() {
             @Override
             public void changed(ChangeEvent event, Actor actor) {
-                if (birthDatePopup == null) {
-                    birthDatePopup = new BirthDatePopup(mainMenuScreen, myZodiac == null);
+                if (Game.getInstance().getAppInfoService().isScreenShotMode()) {
+                    Utils.createChangeLangPopup();
+                } else {
+                    if (birthDatePopup == null) {
+                        birthDatePopup = new BirthDatePopup(mainMenuScreen, myZodiac == null);
+                    }
+                    birthDatePopup.addToPopupManager();
                 }
-                birthDatePopup.addToPopupManager();
             }
         });
         allZodiacTable.add(useBirthDateButton)
