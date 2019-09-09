@@ -256,12 +256,12 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         });
         table.setBackground(GraphicUtils.getNinePatch(MainResource.popup_background));
         float marginDimen = MainDimen.horizontal_general_margin.getDimen();
-        float zIconDimen = marginDimen * 7;
+        float zIconDimen = marginDimen * 8;
         MyWrappedLabel zodiacLabel = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setWidth(zIconDimen / 1.01f).setFontScale(FontManager.getSmallFontDim())
                 .setText(StringUtils.capitalize(SkelGameLabel.valueOf("zod_" + zodiac.name()).getText())).build());
         zodiacLabel = zodiacLabel.fitToContainer();
         table.add(zodiacLabel).width(zIconDimen).row();
-        table.add(getZodiacImage(zodiac)).pad(marginDimen).height(zIconDimen / 1.1f).width(zIconDimen);
+        table.add(getZodiacImage(zodiac)).pad(marginDimen / 2).height(zIconDimen).width(zIconDimen);
         return table;
 
     }
