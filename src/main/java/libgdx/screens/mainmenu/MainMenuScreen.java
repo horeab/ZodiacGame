@@ -18,6 +18,7 @@ import libgdx.constants.ZodiacCompStatus;
 import libgdx.controls.animations.ActorAnimation;
 import libgdx.controls.button.ButtonBuilder;
 import libgdx.controls.button.MyButton;
+import libgdx.controls.label.MyLabel;
 import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
 import libgdx.dbapi.GameStatsDbApiService;
@@ -143,8 +144,10 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         Table zodiacInfoTable = new Table();
         zodiacInfoTable.setBackground(GraphicUtils.getNinePatch(MainResource.popup_background));
         float zodiacPad = marginDimen * 2;
-        zodiacInfoTable.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setFontScale(FontManager.getBigFontDim())
-                .setText(StringUtils.capitalize(SkelGameLabel.valueOf("zod_" + zodiac.name()).getText())).build())).padLeft(zodiacPad).padRight(zodiacPad).width(zodiacDimen).row();
+        MyWrappedLabel myWrappedLabel = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setFontScale(FontManager.getBigFontDim())
+                .setText(StringUtils.capitalize(SkelGameLabel.valueOf("zod_" + zodiac.name()).getText())).setWidth(zodiacDimen / 1.01f).build());
+        myWrappedLabel = myWrappedLabel.fitToContainer();
+        zodiacInfoTable.add(myWrappedLabel).padLeft(zodiacPad).padRight(zodiacPad).width(zodiacDimen).row();
         zodiacInfoTable.add(getZodiacImage(zodiac)).padLeft(zodiacPad).padRight(zodiacPad).height(zodiacDimen).width(zodiacDimen);
         table.add(zodiacInfoTable).row();
         table.add(createPlanetElement(zodiac)).padBottom(marginDimen * 2).row();
@@ -173,9 +176,12 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         Table table = new Table();
         float marginDimen = MainDimen.horizontal_general_margin.getDimen();
         table.add(image).pad(marginDimen).width(EXTRA_INFO_DIMEN).height(EXTRA_INFO_DIMEN).row();
-        table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder()
+        MyWrappedLabel wrappedLabel = new MyWrappedLabel(new MyWrappedLabelConfigBuilder()
+                .setWidth(EXTRA_INFO_DIMEN / 1.01f)
                 .setText(StringUtils.capitalize(label))
-                .setTextColor(FontColor.WHITE).build())).width(EXTRA_INFO_DIMEN);
+                .setTextColor(FontColor.WHITE).build());
+        wrappedLabel = wrappedLabel.fitToContainer();
+        table.add(wrappedLabel).width(EXTRA_INFO_DIMEN);
         return table;
     }
 
@@ -251,8 +257,10 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         table.setBackground(GraphicUtils.getNinePatch(MainResource.popup_background));
         float marginDimen = MainDimen.horizontal_general_margin.getDimen();
         float zIconDimen = marginDimen * 7;
-        table.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setFontScale(FontManager.getSmallFontDim())
-                .setText(StringUtils.capitalize(SkelGameLabel.valueOf("zod_" + zodiac.name()).getText())).build())).width(zIconDimen).row();
+        MyWrappedLabel zodiacLabel = new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setWidth(zIconDimen / 1.01f).setFontScale(FontManager.getSmallFontDim())
+                .setText(StringUtils.capitalize(SkelGameLabel.valueOf("zod_" + zodiac.name()).getText())).build());
+        zodiacLabel = zodiacLabel.fitToContainer();
+        table.add(zodiacLabel).width(zIconDimen).row();
         table.add(getZodiacImage(zodiac)).pad(marginDimen).height(zIconDimen / 1.1f).width(zIconDimen);
         return table;
 
