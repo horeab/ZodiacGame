@@ -21,7 +21,7 @@ public class StartGame {
 
                     @Override
                     public boolean isScreenShotMode() {
-                        return true;
+                        return false;
                     }
 
                     @Override
@@ -36,7 +36,7 @@ public class StartGame {
 
                     @Override
                     public String getLanguage() {
-                        return Language.nl.name();
+                        return Language.hi.name();
                     }
                 });
         libgdx.utils.startgame.StartGame.main(game, args);

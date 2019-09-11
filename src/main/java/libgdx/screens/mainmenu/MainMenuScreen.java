@@ -85,6 +85,7 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         changeAllTableView(new Runnable() {
             @Override
             public void run() {
+                Game.getInstance().getAppInfoService().showPopupAd();
                 createCompTable();
             }
         });
@@ -121,7 +122,7 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         float marginDimen = MainDimen.horizontal_general_margin.getDimen();
         float compDimen = smallFontLang() ? marginDimen * 13 : marginDimen * 20;
         Table compTable = new Table();
-        compTable.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setTextColor(FontColor.WHITE).setText(SkelGameLabel.valueOf("comp_" + zodiacCompStatus.name()).getText()).setFontScale(FontManager.getBigFontDim()).build()))
+        compTable.add(new MyWrappedLabel(new MyWrappedLabelConfigBuilder().setTextColor(FontColor.WHITE).setText(StringUtils.capitalize(SkelGameLabel.valueOf("comp_" + zodiacCompStatus.name()).getText())).setFontScale(FontManager.getBigFontDim()).build()))
                 .row();
         Image compImg = GraphicUtils.getImage(SkelGameSpecificResource.valueOf(zodiacCompStatus.name()));
         compImg.setOrigin(Align.center);
