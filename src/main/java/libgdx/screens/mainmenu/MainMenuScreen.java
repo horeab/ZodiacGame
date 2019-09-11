@@ -1,5 +1,6 @@
 package libgdx.screens.mainmenu;
 
+import com.badlogic.gdx.Application;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.scenes.scene2d.Actor;
 import com.badlogic.gdx.scenes.scene2d.InputEvent;
@@ -17,7 +18,9 @@ import libgdx.constants.Zodiac;
 import libgdx.constants.ZodiacCompStatus;
 import libgdx.controls.animations.ActorAnimation;
 import libgdx.controls.button.ButtonBuilder;
+import libgdx.controls.button.MainButtonSize;
 import libgdx.controls.button.MyButton;
+import libgdx.controls.button.builders.BackButtonBuilder;
 import libgdx.controls.label.MyLabel;
 import libgdx.controls.label.MyWrappedLabel;
 import libgdx.controls.label.MyWrappedLabelConfigBuilder;
@@ -55,6 +58,7 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
 
     private Zodiac myZodiac;
     private Zodiac partnerZodiac;
+    private MyButton screenBackButton;
 
     private Table allZodiacTable;
 
@@ -72,6 +76,12 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         currentUser = Game.getInstance().getCurrentUser();
         if (myZodiac == null) {
             new SkelGameRatingService(this).appLaunched();
+        }
+        screenBackButton = new BackButtonBuilder().createScreenBackButton(this);
+        screenBackButton.setPosition(MainButtonSize.BACK_BUTTON.getWidth(),
+                ScreenDimensionsManager.getScreenHeight() - MainButtonSize.BACK_BUTTON.getHeight());
+        if (Gdx.app.getType() == Application.ApplicationType.iOS) {
+            addActor(screenBackButton);
         }
         createAllZodiacTable();
 
@@ -135,6 +145,7 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
         compTable.add(imgTable).width(compDimen);
         allZodiacTable.add(compTable).height(ScreenDimensionsManager.getScreenHeightValue(smallFontLang() ? 40 : 50)).growX().colspan(2);
         addActor(allZodiacTable);
+        screenBackButton.toFront();
     }
 
     private Table createCompZodiacContainer(Zodiac zodiac) {
@@ -234,6 +245,7 @@ public class MainMenuScreen extends AbstractScreen<ScreenManager> {
             }
         }), Actions.fadeIn(0.5f)));
         addActor(allZodiacTable);
+        screenBackButton.toFront();
     }
 
     private boolean smallFontLang() {
